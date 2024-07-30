@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
-function Timer({secondsRemaining,dispatch}) {
+function Timer({secondsRemaining,dispatch,configQuestions}) {
+
 
     const mins = Math.floor(secondsRemaining/60);
     const seconds = secondsRemaining % 60;

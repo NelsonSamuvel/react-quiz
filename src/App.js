@@ -73,11 +73,15 @@ function reducer(state, action) {
     }
 
     case "startGame": {
+
+    const configQuestions = state.questions
+    ?.filter((question) => question.level === state.questionLevel)
+    .slice(0,state.questionsLimit);
+
       return {
         ...state,
-
         status: "active",
-        secondsRemaining: state.questions.length * QUESTION_SECS,
+        secondsRemaining: configQuestions.length * QUESTION_SECS,
       };
     }
 
@@ -167,6 +171,8 @@ const App = () => {
 
   const numQuestions = configQuestions.length;
 
+  // const levelSecondsRemaining = secondsRemaining - numQuestions* QUESTION_SECS;
+
   useEffect(() => {
     fetchData(dispatch);
   }, []);
@@ -200,7 +206,7 @@ const App = () => {
               answer={answer}
             />
             <Footer>
-              <Timer secondsRemaining={secondsRemaining} dispatch={dispatch} />
+              <Timer secondsRemaining={secondsRemaining} dispatch={dispatch} configQuestions={configQuestions}/>
               <NextBtn
                 dispatch={dispatch}
                 answer={answer}
