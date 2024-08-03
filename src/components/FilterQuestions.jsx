@@ -1,6 +1,10 @@
 import React from "react";
+import { useQuiz } from "../context/QuizContextProvider";
 
-function FilterQuestions({ questionLevel, dispatch }) {
+function FilterQuestions({ questionLevel }) {
+
+  const {dispatch} = useQuiz();
+
   return (
     <select
       className="level"

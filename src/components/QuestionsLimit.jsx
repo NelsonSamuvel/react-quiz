@@ -1,10 +1,13 @@
 import React from "react";
+import { useQuiz } from "../context/QuizContextProvider";
 
-function QuestionsLimit({filteredQuestions, questionsLimit,questionLevel, dispatch }) {
+function QuestionsLimit({questionLevel}) {
 
+  const {questionsLimit,setQuestionsLimit,questions} = useQuiz();
 
-    
-
+  const filteredQuestions = questions.filter(
+    (question) => question.level === questionLevel
+  );
 
   return (
     <div className="limit-questions">
@@ -13,9 +16,7 @@ function QuestionsLimit({filteredQuestions, questionsLimit,questionLevel, dispat
         max={filteredQuestions?.length}
         min={1}
         value={questionsLimit}
-        onChange={(e) =>
-          dispatch({ type: "questionsLimit", payload: Number(e.target.value) })
-        }
+        onChange={setQuestionsLimit}
       />
       <p>Questions : {questionsLimit}</p>
     </div>

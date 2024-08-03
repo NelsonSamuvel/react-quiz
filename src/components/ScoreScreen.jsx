@@ -1,6 +1,10 @@
 import React from "react";
+import { useQuiz } from "../context/QuizContextProvider";
 
-function ScoreScreen({ points, maxPoints, highScore, dispatch }) {
+function ScoreScreen() {
+
+  const {points,maxPoints,highScore,dispatch} = useQuiz();
+
   const percentage = (points / maxPoints) * 100;
   return (
     <div>

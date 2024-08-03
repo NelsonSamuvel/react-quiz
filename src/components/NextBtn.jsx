@@ -1,7 +1,9 @@
 import React from 'react'
+import { useQuiz } from '../context/QuizContextProvider';
 
-function NextBtn({dispatch,index,numQuestions,answer}) {
+function NextBtn() {
 
+    const {dispatch,index,numQuestions,answer} = useQuiz();
 
     if(answer === null) return null;
 

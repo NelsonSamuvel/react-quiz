@@ -1,13 +1,15 @@
 import React from "react";
 import Options from "./Options";
+import { useQuiz } from "../context/QuizContextProvider";
 
-function Question({ question, dispatch, answer }) {
+function Question() {
 
-  console.log(question);
+  const {configQuestions,index} = useQuiz();
+
   return (
     <div>
-      <h4>{question.question}</h4>
-      <Options question={question} dispatch={dispatch} answer={answer} />
+      <h4>{configQuestions[index].question}</h4>
+      <Options question={configQuestions[index]} />
     </div>
   );
 }
