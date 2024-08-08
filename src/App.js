@@ -13,13 +13,11 @@ import Timer from "./components/Timer";
 import { useQuiz } from "./context/QuizContextProvider";
 
 const App = () => {
-  const { fetchData, status } = useQuiz();
+  const {  status } = useQuiz();
 
   // const levelSecondsRemaining = secondsRemaining - numQuestions* QUESTION_SECS;
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+
 
   return (
     <div className="app">

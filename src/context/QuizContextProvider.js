@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer,useEffect } from "react";
 
 const QuizContext = createContext();
 
@@ -107,11 +107,10 @@ function reducer(state, action) {
 
       return {
         ...initialState,
-        questions: state.questions,
+        questions : state.questions,
         status: "ready",
-        questionsLimit: state.questions.filter(
-          (question) => question.level === state.questionLevel
-        ).length,
+        questionsLimit : state.questionsLimit,
+        questionLevel : state.questionLevel
       };
     }
 
@@ -153,16 +152,18 @@ const maxPoints = configQuestions.reduce((prev, cur) => prev + cur.points, 0);
 
 const numQuestions = configQuestions.length;
 
-
-  async function fetchData() {
-    try {
-      const res = await fetch("http://localhost:8000/questions");
-      const data = await res.json();
-      dispatch({ type: "dataReceived", payload: data });
-    } catch (err) {
-      dispatch({ type: "dataFailed" });
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("http://localhost:8000/questions");
+        const data = await res.json();
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (err) {
+        dispatch({ type: "dataFailed" });
+      }
     }
-  }
+    fetchData();
+  }, []);
 
   function startGame(){
     dispatch({ type: "startGame" })
@@ -175,7 +176,6 @@ const numQuestions = configQuestions.length;
   return (
     <QuizContext.Provider
       value={{
-        fetchData,
         questions,
         status,
         index,
